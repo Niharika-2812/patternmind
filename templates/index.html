@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PatternMind</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="background-glow"></div>
+
+<nav>
+    <div class="logo">
+        <span class="logo-icon">◈</span>
+        PatternMind
+    </div>
+
+    <div class="nav-right">
+        <span class="status-dot"></span>
+        Memory Agent Online
+    </div>
+</nav>
+
+
+<main>
+
+    <section class="hero">
+
+        <div class="hero-badge">
+            LONG-TERM AI MEMORY
+        </div>
+
+        <h1>
+            Remember.
+            <span>Connect.</span>
+            Discover.
+        </h1>
+
+        <p>
+            PatternMind uses historical experiences to discover
+            recurring patterns and generate evidence-backed insights.
+        </p>
+
+    </section>
+
+
+    <section class="stats">
+
+        <div class="stat-card">
+            <div class="stat-number">{{ experiences|length }}</div>
+            <div class="stat-label">Memories</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">{{ patterns|length }}</div>
+            <div class="stat-label">Patterns</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-number">AI</div>
+            <div class="stat-label">Memory Engine</div>
+        </div>
+
+    </section>
+
+
+    <section class="dashboard">
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <div class="eyebrow">EXPERIENCE ANALYZER</div>
+                    <h2>Analyze a new experience</h2>
+                </div>
+            </div>
+
+            <textarea
+                id="query"
+                placeholder="Describe a new incident, experience, decision or event..."
+            ></textarea>
+
+            <button onclick="analyzeExperience()" class="primary-btn">
+                ✦ Discover Patterns
+            </button>
+
+            <div id="analysisResult"></div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <div class="eyebrow">MEMORY</div>
+                    <h2>Historical Experiences</h2>
+                </div>
+
+                <span class="count-badge">
+                    {{ experiences|length }}
+                </span>
+            </div>
+
+            <div class="memory-list">
+
+                {% for experience in experiences %}
+
+                <div class="memory-card">
+
+                    <div class="memory-top">
+                        <span class="memory-id">
+                            #{{ experience.id }}
+                        </span>
+
+                        <span class="memory-date">
+                            {{ experience.date }}
+                        </span>
+                    </div>
+
+                    <h3>{{ experience.title }}</h3>
+
+                    <p>
+                        {{ experience.description }}
+                    </p>
+
+                    <div class="tags">
+
+                        {% for tag in experience.tags %}
+
+                        <span>{{ tag }}</span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="patterns-section">
+
+        <div class="section-title">
+
+            <div>
+                <div class="eyebrow">REFLECTION ENGINE</div>
+                <h2>Discovered Patterns</h2>
+            </div>
+
+            <div class="ai-label">
+                GENERATED FROM MEMORY
+            </div>
+
+        </div>
+
+
+        <div id="patternContainer">
+
+            {% for pattern in patterns %}
+
+            <div class="pattern-card">
+
+                <div class="pattern-icon">
+                    ◉
+                </div>
+
+                <div class="pattern-content">
+
+                    <h3>
+                        {{ pattern.pattern }}
+                    </h3>
+
+                    <p>
+                        Observed across
+                        <strong>{{ pattern.frequency }}</strong>
+                        historical experiences.
+                    </p>
+
+                    <div class="evidence">
+
+                        <strong>Evidence:</strong>
+
+                        {% for evidence in pattern.evidence %}
+
+                        <span>{{ evidence }}</span>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <section class="architecture">
+
+        <div class="architecture-title">
+            <div class="eyebrow">SYSTEM LOOP</div>
+            <h2>From Experience to Insight</h2>
+        </div>
+
+        <div class="flow">
+
+            <div>Experience</div>
+            <span>→</span>
+
+            <div>Remember</div>
+            <span>→</span>
+
+            <div>Connect</div>
+            <span>→</span>
+
+            <div>Discover</div>
+            <span>→</span>
+
+            <div>Explain</div>
+            <span>→</span>
+
+            <div>Improve</div>
+
+        </div>
+
+        <p class="architecture-note">
+            Powered by long-term memory and historical context.
+        </p>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div>
+        <strong>PatternMind</strong>
+        <span> • </span>
+        Team Ostroga
+    </div>
+
+    <div>
+        Hack With Hyderabad 3.0
+    </div>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
